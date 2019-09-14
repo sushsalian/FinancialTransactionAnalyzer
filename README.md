@@ -1,5 +1,25 @@
 # FinancialTransactionAnalyzer
 
+Calculates Relative balance for the given financial transaction records.
+
+Input :
+
+User is asked to input CSV file path & accountId from(dd/MM/yyyy HH:mm:ss) & to(20/10/2018 19:00:00) should be provided as arguments.
+
+Output will be as below:
+
+Relative balance for the period is: -$25.00
+Number of transactions included is: 1 
+
+Design:
+- Get list of Transactions for the given account ID only.
+- Create a List of transaction Id's which are the related Transactions for the accountID
+- Traverse through account ID transactions
+   - Ignore REVERSAL Transactions
+   - Ignore trasaction ID's which are in Related Transactions List
+   - Compute relative balance for the remaining transactions
+
+
 How To Run:
 
 1. Download or clone the project
