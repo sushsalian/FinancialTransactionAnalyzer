@@ -4,7 +4,7 @@ Calculates Relative balance for the given financial transaction records.
 
 Input :
 
-User is asked to input CSV file path & accountId from(dd/MM/yyyy HH:mm:ss) & to(20/10/2018 19:00:00) should be provided as arguments.
+User is asked to input CSV file path & accountId, from date(dd/MM/yyyy HH:mm:ss) & to date(dd/MM/yyyy HH:mm:ss) should be provided as arguments.
 
 Output will be as below:
 
