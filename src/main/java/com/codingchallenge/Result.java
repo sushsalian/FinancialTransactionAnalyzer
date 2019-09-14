@@ -1,7 +1,7 @@
 package com.codingchallenge;
 
 /**
- * Result classS
+ * Result class
  */
 public class Result {
 
@@ -11,7 +11,7 @@ public class Result {
     }
 
     private Double relativeBalance = 0.0;
-    private int totalTransactions = 0 ;
+    private int totalTransactions = 0;
 
     public Double getRelativeBalance() {
         return relativeBalance;
@@ -32,12 +32,12 @@ public class Result {
     @Override
     public String toString() {
         return "Relative balance for the period is: " + getRelativeBalanceAsString() +
-                "\nNumber of transactions included is:" + totalTransactions ;
+                "\nNumber of transactions included is:" + totalTransactions;
     }
 
     public String getRelativeBalanceAsString() {
         String prefix = "$";
-        if(relativeBalance  >= 0) {
+        if (relativeBalance >= 0) {
             return prefix + relativeBalance;
         }
         return "-" + prefix + Math.abs(relativeBalance);

@@ -17,14 +17,16 @@ public class TransactionUtil {
     public static Result getResult(String fileName, String accountId,
                             String fromDateString, String toDateString){
         List<Transaction> transactionList = getTransactions(fileName);
+
         Result result = new Result(0.00, 0);
+
         List<Transaction> accountTransactions = transactionList.stream().
                 filter(transaction -> accountId.equals(transaction.getFromAccountID())
                         || accountId.equals(transaction.getToAccountID())).collect(Collectors.toList());
         if(accountTransactions.isEmpty()) {
             return result;
         }
-        //stored the related transaction ids from the reversal transactions
+        //store the related transaction ids from the reversal transactions
         List<String> reversalTransaction  = accountTransactions.stream().
                 filter(t -> t.getTransactionType().equals(Transaction.TransactionType.REVERSAL)).
                 map(t -> t.getRelatedTransactionId()).collect(Collectors.toList());
@@ -36,16 +38,19 @@ public class TransactionUtil {
                     reversalTransaction.contains(transaction.getTransactionID())) {
                 continue;
             }
+
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
             LocalDateTime fromDate = LocalDateTime.parse(fromDateString, formatter
                     );
             LocalDateTime toDate = LocalDateTime.parse(toDateString, formatter);
             LocalDateTime transactionDate = LocalDateTime.parse(transaction.getCreationDate(),formatter);
+
             if(transactionDate.isAfter(toDate)) {
                  break;
             }else if(transactionDate.isBefore(fromDate)) {
                 continue;
             }
+
             if(accountId.equals(transaction.getFromAccountID())) {
                 result.setRelativeBalance(result.getRelativeBalance() - transaction.getAmount());
                 result.setTotalTransactions(result.getTotalTransactions() + 1);
@@ -62,7 +67,7 @@ public class TransactionUtil {
     }
 
     /**
-     * Returns List of transactions from the file
+     * Returns list of transactions from the file
      * @param filePath
      * @return
      */
@@ -74,7 +79,7 @@ public class TransactionUtil {
             InputStream inputFS = new FileInputStream(inputF);
             BufferedReader br = new BufferedReader(new InputStreamReader(inputFS));
             // skip the header of the csv
-            transactions = br.lines().skip(1).map(l -> constructLineToTransaction(l)).collect(Collectors.toList());
+            transactions = br.lines().skip(1).map(l -> convertLineToTransaction(l)).collect(Collectors.toList());
             br.close();
         } catch (IOException e) {
             System.out.println("Error when reading file");
@@ -89,7 +94,7 @@ public class TransactionUtil {
      * @param line
      * @return
      */
-    private static Transaction constructLineToTransaction(String line) {
+    private static Transaction convertLineToTransaction(String line) {
         //TX10004, ACC334455, ACC998877, 20/10/2018 19:45:00, 10.50, REVERSAL, TX10002
         String[] lineTokens = line.split(", ");
         if(lineTokens.length < 6 || lineTokens.length > 7) {
