@@ -2,6 +2,8 @@ package com.codingchallenge;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 /**
@@ -23,6 +25,14 @@ public class Main {
         String fromDateTime = args[1];
 
         String endDateTime = args[2];
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        LocalDateTime fromDate = LocalDateTime.parse(fromDateTime, formatter);
+        LocalDateTime toDate = LocalDateTime.parse(endDateTime, formatter);
+        if(fromDate.isAfter(toDate)) {
+            System.out.println("Invalid from datetime & to datetime");
+            return;
+        }
 
         Result result = TransactionUtil.getResult(fileName, accountID.trim(), fromDateTime.trim(),
                 endDateTime.trim());
