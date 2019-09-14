@@ -9,6 +9,7 @@ User is asked to input CSV file path & accountId, from date(dd/MM/yyyy HH:mm:ss)
 Output will be as below:
 
 Relative balance for the period is: -$25.00
+
 Number of transactions included is: 1 
 
 Design:
